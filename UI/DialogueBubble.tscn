@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://e1inhh5re8y6"]
+
+[ext_resource type="Script" uid="uid://bb76hjgk0iwp7" path="res://UI/dialogue_bubble.gd" id="1_22mp0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tiqar"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.34781694, 0.34781697, 0.3478169, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="DialogueBubble" type="CanvasLayer"]
+script = ExtResource("1_22mp0")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(280, 80)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -80.0
+offset_right = 110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tiqar")
+
+[node name="Label" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.11858138, 0.11858138, 0.11858138, 1)
+theme_override_font_sizes/font_size = 19
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
