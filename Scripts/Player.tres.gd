@@ -5,10 +5,17 @@ class_name Player extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite2D
 
+var player_can_move = true
 var last_direction := Vector2.DOWN
 
 
 func _physics_process(_delta):
+	if player_can_move == false:
+		velocity = Vector2.ZERO
+		play_idle_animation()
+		move_and_slide()
+		return
+		
 	var direction := Vector2.ZERO
 
 	if Input.is_action_pressed("ui_right"):
@@ -50,6 +57,23 @@ func update_animation(direction: Vector2):
 				anim = "idle_down"
 			Vector2.UP:
 				anim = "idle_up"
+
+	if animation_player.current_animation != anim:
+		animation_player.play(anim)
+
+
+func play_idle_animation():
+	var anim := ""
+
+	match last_direction:
+		Vector2.RIGHT:
+			anim = "idle_right"
+		Vector2.LEFT:
+			anim = "idle_left"
+		Vector2.DOWN:
+			anim = "idle_down"
+		Vector2.UP:
+			anim = "idle_up"
 
 	if animation_player.current_animation != anim:
 		animation_player.play(anim)

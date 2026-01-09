@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://doogpscbkh2xx"]
+
+[ext_resource type="Texture2D" uid="uid://c3vibrxar8d87" path="res://Sprites/trainer sprites and portraits.png" id="1_p5ih6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5ih6"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.34781694, 0.34781697, 0.3478169, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Battle" type="Node2D"]
+
+[node name="Panel2" type="Panel" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(280, 80)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 427.0
+offset_top = 557.0
+offset_right = 707.0
+offset_bottom = 637.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p5ih6")
+
+[node name="Label" type="Label" parent="Panel2"]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 0
+offset_right = 279.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.11858138, 0.11858138, 0.11858138, 1)
+theme_override_font_sizes/font_size = 19
+text = "Vou humilhar voce e toda sua familia!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+offset_left = 797.0
+offset_top = 4.0
+offset_right = 837.0
+offset_bottom = 44.0
+scale = Vector2(11.16, 6.4799995)
+color = Color(0.8784314, 0.972549, 0.8117647, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D2"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(29.320002, 16.08)
+color = Color(0.8784314, 0.972549, 0.8117647, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(547, 420.00003)
+scale = Vector2(8.127815, 8.127815)
+texture = ExtResource("1_p5ih6")
+hframes = 4
+vframes = 6
+frame = 6
