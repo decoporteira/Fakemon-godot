@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://5q7ptgivpy6r"]
 
 [ext_resource type="Texture2D" uid="uid://c3vibrxar8d87" path="res://Sprites/trainer sprites and portraits.png" id="1_3qydi"]
-[ext_resource type="Script" uid="uid://d27fdh6xkm2t8" path="res://Scripts/Player.tres.gd" id="1_q3lat"]
+[ext_resource type="Script" uid="uid://d27fdh6xkm2t8" path="res://Scripts/Player.gd" id="1_q3lat"]
 [ext_resource type="PackedScene" uid="uid://dgq4e7iufyb0l" path="res://Enemy/Enemy.tscn" id="3_ddoul"]
 [ext_resource type="PackedScene" uid="uid://qlbsyowkhtgw" path="res://Tilemaps/grass_001.tscn" id="3_tok1r"]
 

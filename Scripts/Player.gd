@@ -1,43 +1,45 @@
-class_name Player extends CharacterBody2D
+class_name Player
+extends CharacterBody2D
 
 @export var speed := 100.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite: Sprite2D = $Sprite2D
 
-var player_can_move = true
+var states = {}
+var current_state: PlayerState
 var last_direction := Vector2.DOWN
 
 
-func _physics_process(_delta):
-	if player_can_move == false:
-		velocity = Vector2.ZERO
-		play_idle_animation()
-		move_and_slide()
-		return
-		
-	var direction := Vector2.ZERO
+func _ready():
+	states = {
+		"idle": PlayerIdle.new(),
+		"move": PlayerMove.new(),
+		"locked": PlayerLocked.new()
+	}
 
-	if Input.is_action_pressed("ui_right"):
-		direction = Vector2.RIGHT
-	elif Input.is_action_pressed("ui_left"):
-		direction = Vector2.LEFT
-	elif Input.is_action_pressed("ui_down"):
-		direction = Vector2.DOWN
-	elif Input.is_action_pressed("ui_up"):
-		direction = Vector2.UP
+	for state in states.values():
+		state.player = self
+		add_child(state)
 
-	velocity = direction * speed
-	move_and_slide()
-	update_animation(direction)
+	change_state("idle")
 
+
+func _physics_process(delta):
+	current_state.physics_update(delta)
+
+
+func change_state(state_name: String):
+	if current_state:
+		current_state.exit()
+
+	current_state = states[state_name]
+	current_state.enter()
 
 func update_animation(direction: Vector2):
 	var anim := ""
 
 	if direction != Vector2.ZERO:
 		last_direction = direction
-
 		match direction:
 			Vector2.RIGHT:
 				anim = "walk_right"
@@ -77,3 +79,15 @@ func play_idle_animation():
 
 	if animation_player.current_animation != anim:
 		animation_player.play(anim)
+
+func get_input_direction() -> Vector2:
+	if Input.is_action_pressed("ui_right"):
+		return Vector2.RIGHT
+	elif Input.is_action_pressed("ui_left"):
+		return Vector2.LEFT
+	elif Input.is_action_pressed("ui_down"):
+		return Vector2.DOWN
+	elif Input.is_action_pressed("ui_up"):
+		return Vector2.UP
+
+	return Vector2.ZERO
