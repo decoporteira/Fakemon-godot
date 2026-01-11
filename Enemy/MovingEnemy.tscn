@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://df4spjllhrc0g"]
+
+[ext_resource type="Script" uid="uid://p84en2f458mi" path="res://moving_enemy.gd" id="1_05bq7"]
+[ext_resource type="Texture2D" uid="uid://c3vibrxar8d87" path="res://Sprites/trainer sprites and portraits.png" id="2_e43fp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e43fp"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_xwu51"]
+resource_name = "walk_right"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.56666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [123, 122]
+}
+
+[sub_resource type="Animation" id="Animation_h1j6j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [115]
+}
+
+[sub_resource type="Animation" id="Animation_7fb8x"]
+resource_name = "walk_left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333, 0.56666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [121, 120]
+}
+
+[sub_resource type="Animation" id="Animation_87028"]
+resource_name = "walk_up"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [119, 118, 117]
+}
+
+[sub_resource type="Animation" id="Animation_h40al"]
+resource_name = "walk_down"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [116, 115, 114]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7fb8x"]
+_data = {
+&"RESET": SubResource("Animation_h1j6j"),
+&"walk_down": SubResource("Animation_h40al"),
+&"walk_left": SubResource("Animation_7fb8x"),
+&"walk_right": SubResource("Animation_xwu51"),
+&"walk_up": SubResource("Animation_87028")
+}
+
+[node name="MovingEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_05bq7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e43fp")
+hframes = 25
+vframes = 32
+frame = 115
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 0
+shape = SubResource("CapsuleShape2D_e43fp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7fb8x")
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

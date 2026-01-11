@@ -1,7 +1,7 @@
 class_name PlayerState
 extends Node
 
-var player: Player
+var player
 
 func enter():
 	pass

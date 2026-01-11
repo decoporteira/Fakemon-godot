@@ -2,12 +2,12 @@ class_name PlayerMove
 extends PlayerState
 
 func physics_update(_delta):
-	var direction = player.get_input_direction()
+	var dir = player.get_input_direction()
 
-	if direction == Vector2.ZERO:
-		player.change_state("idle")
-		return
-
-	player.velocity = direction * player.speed
+	player.velocity = dir * player.speed
 	player.move_and_slide()
-	player.update_animation(direction)
+
+	player.animation.play_walk(dir)
+
+	if dir == Vector2.ZERO:
+		player.change_state("idle")

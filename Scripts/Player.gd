@@ -3,11 +3,10 @@ extends CharacterBody2D
 
 @export var speed := 100.0
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation: PlayerAnimation = $PlayerAnimation
 
-var states = {}
+var states: Dictionary = {}
 var current_state: PlayerState
-var last_direction := Vector2.DOWN
 
 
 func _ready():
@@ -25,7 +24,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	current_state.physics_update(delta)
+	if current_state:
+		current_state.physics_update(delta)
 
 
 func change_state(state_name: String):
@@ -35,50 +35,6 @@ func change_state(state_name: String):
 	current_state = states[state_name]
 	current_state.enter()
 
-func update_animation(direction: Vector2):
-	var anim := ""
-
-	if direction != Vector2.ZERO:
-		last_direction = direction
-		match direction:
-			Vector2.RIGHT:
-				anim = "walk_right"
-			Vector2.LEFT:
-				anim = "walk_left"
-			Vector2.DOWN:
-				anim = "walk_down"
-			Vector2.UP:
-				anim = "walk_up"
-	else:
-		match last_direction:
-			Vector2.RIGHT:
-				anim = "idle_right"
-			Vector2.LEFT:
-				anim = "idle_left"
-			Vector2.DOWN:
-				anim = "idle_down"
-			Vector2.UP:
-				anim = "idle_up"
-
-	if animation_player.current_animation != anim:
-		animation_player.play(anim)
-
-
-func play_idle_animation():
-	var anim := ""
-
-	match last_direction:
-		Vector2.RIGHT:
-			anim = "idle_right"
-		Vector2.LEFT:
-			anim = "idle_left"
-		Vector2.DOWN:
-			anim = "idle_down"
-		Vector2.UP:
-			anim = "idle_up"
-
-	if animation_player.current_animation != anim:
-		animation_player.play(anim)
 
 func get_input_direction() -> Vector2:
 	if Input.is_action_pressed("ui_right"):

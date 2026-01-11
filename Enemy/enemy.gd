@@ -2,14 +2,14 @@ class_name Enemy
 extends Node2D
 
 @export var dialogue_scene: PackedScene
+
 var dialogue_shown := false
 var player_node2d: Player
 
 
 func _ready():
 	player_node2d = get_tree().current_scene.get_node("Player")
-
-
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if dialogue_shown:
 		return
